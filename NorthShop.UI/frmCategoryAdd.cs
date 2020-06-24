@@ -1,4 +1,5 @@
-﻿using NorthShop.DAL;
+﻿using NorthShop.BLL;
+using NorthShop.DAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,14 +18,13 @@ namespace NorthShop.UI
         {
             InitializeComponent();
         }
-        NorthwindEntities db = new NorthwindEntities();
+        CategoryService service = new CategoryService();
         private void btnKaydet_Click(object sender, EventArgs e)
         {
             Category c = new Category();
             c.CategoryName = txtCategoryName.Text;
             c.Description = txtDesc.Text;
-            db.Categories.Add(c);
-            db.SaveChanges();
+            service.Add(c);
             MessageBox.Show("Kategori Eklendi");
         }
     }

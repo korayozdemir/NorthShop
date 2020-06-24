@@ -1,4 +1,5 @@
-﻿using NorthShop.DAL;
+﻿using NorthShop.BLL;
+using NorthShop.DAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,7 @@ namespace NorthShop.UI
         {
             InitializeComponent();
         }
-        NorthwindEntities db = new NorthwindEntities();
+        CategoryService service = new CategoryService();
         Category selectedCategory;
 
         private void frmCategoryList_Load(object sender, EventArgs e)
@@ -27,9 +28,8 @@ namespace NorthShop.UI
 
         private void DataFill()
         {
-            db = new NorthwindEntities();
             listView1.Items.Clear();
-            List<Category> clist = db.Categories.ToList();
+            List<Category> clist = service.GetAll();
             foreach (Category category in clist)
             {
                 ListViewItem li = new ListViewItem();
@@ -54,8 +54,7 @@ namespace NorthShop.UI
 
                 if (result == DialogResult.OK)
                 {
-                    db.Categories.Remove(selectedCategory);
-                    db.SaveChanges();
+                    service.Delete(selectedCategory);
                     MessageBox.Show("Silindi");
                     DataFill();
                 }

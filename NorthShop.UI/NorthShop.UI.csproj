@@ -145,6 +145,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NorthShop.BLL\NorthShop.BLL.csproj">
+      <Project>{a4700168-0403-49a0-b399-74ea77c94a30}</Project>
+      <Name>NorthShop.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NorthShop.DAL\NorthShop.DAL.csproj">
       <Project>{2c063fae-bb30-479a-bc1c-5f45801f0e33}</Project>
       <Name>NorthShop.DAL</Name>

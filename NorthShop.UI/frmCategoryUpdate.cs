@@ -1,4 +1,5 @@
-﻿using NorthShop.DAL;
+﻿using NorthShop.BLL;
+using NorthShop.DAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,7 @@ namespace NorthShop.UI
     public partial class frmCategoryUpdate : Form
     {
         private Category category;
-        NorthwindEntities db = new NorthwindEntities();
+        CategoryService service = new CategoryService();
         public frmCategoryUpdate(Category _category)
         {
             category = _category;
@@ -29,11 +30,9 @@ namespace NorthShop.UI
 
         private void btnKaydet_Click(object sender, EventArgs e)
         {
-            //Category updateCategory = db.Categories.Where(z => z.CategoryID == category.CategoryID).FirstOrDefault();
-            Category updateCategory = db.Categories.FirstOrDefault(z => z.CategoryID == category.CategoryID);
-            updateCategory.CategoryName = txtCategoryName.Text;
-            updateCategory.Description = txtDesc.Text;
-            db.SaveChanges();
+            category.CategoryName = txtCategoryName.Text;
+            category.Description = txtDesc.Text;
+            service.Update(category);
             MessageBox.Show("Guncellendi");
         }
     }
