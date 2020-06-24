@@ -27,6 +27,7 @@ namespace NorthShop.UI
 
         private void DataFill()
         {
+            db = new NorthwindEntities();
             listView1.Items.Clear();
             List<Category> clist = db.Categories.ToList();
             foreach (Category category in clist)
@@ -71,8 +72,17 @@ namespace NorthShop.UI
 
         private void guncelleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Güncellendi");
+            frmCategoryUpdate updateForm = new frmCategoryUpdate(selectedCategory);
+            updateForm.FormClosed += UpdateForm_FormClosed;
+            updateForm.ShowDialog();
+
         }
+
+        private void UpdateForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            DataFill();
+        }
+
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count > 0)
