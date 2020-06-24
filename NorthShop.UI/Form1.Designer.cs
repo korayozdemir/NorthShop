@@ -63,14 +63,14 @@
             // btnCategoryAdd
             // 
             this.btnCategoryAdd.Name = "btnCategoryAdd";
-            this.btnCategoryAdd.Size = new System.Drawing.Size(224, 26);
+            this.btnCategoryAdd.Size = new System.Drawing.Size(195, 26);
             this.btnCategoryAdd.Text = "Kategori Ekle";
             this.btnCategoryAdd.Click += new System.EventHandler(this.btnCategoryAdd_Click);
             // 
             // btnCategoryList
             // 
             this.btnCategoryList.Name = "btnCategoryList";
-            this.btnCategoryList.Size = new System.Drawing.Size(224, 26);
+            this.btnCategoryList.Size = new System.Drawing.Size(195, 26);
             this.btnCategoryList.Text = "Kategori Listele";
             this.btnCategoryList.Click += new System.EventHandler(this.btnCategoryList_Click);
             // 
@@ -88,12 +88,14 @@
             this.btnProductAdd.Name = "btnProductAdd";
             this.btnProductAdd.Size = new System.Drawing.Size(224, 26);
             this.btnProductAdd.Text = "Ürün Ekle";
+            this.btnProductAdd.Click += new System.EventHandler(this.btnProductAdd_Click);
             // 
             // btnProductList
             // 
             this.btnProductList.Name = "btnProductList";
             this.btnProductList.Size = new System.Drawing.Size(224, 26);
             this.btnProductList.Text = "Ürün Listesi";
+            this.btnProductList.Click += new System.EventHandler(this.btnProductList_Click);
             // 
             // label1
             // 

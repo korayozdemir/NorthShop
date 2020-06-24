@@ -28,5 +28,17 @@ namespace NorthShop.UI
             frmCategoryList frm = new frmCategoryList();
             frm.ShowDialog();
         }
+
+        private void btnProductAdd_Click(object sender, EventArgs e)
+        {
+            frmProductAdd frm = new frmProductAdd();
+            frm.Show();
+        }
+
+        private void btnProductList_Click(object sender, EventArgs e)
+        {
+            frmProductList frm = new frmProductList();
+            frm.Show();
+        }
     }
 }
