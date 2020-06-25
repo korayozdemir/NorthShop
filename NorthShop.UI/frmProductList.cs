@@ -1,4 +1,5 @@
-﻿using NorthShop.DAL;
+﻿using NorthShop.BLL;
+using NorthShop.DAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,7 @@ namespace NorthShop.UI
         {
             InitializeComponent();
         }
-        NorthwindEntities db = new NorthwindEntities();
+        ProductService service = new ProductService();
         Product selectedProduct;
         private void frmProductList_Load(object sender, EventArgs e)
         {
@@ -26,16 +27,18 @@ namespace NorthShop.UI
 
         private void DataFill()
         {
-            db = new NorthwindEntities();
             listView1.Items.Clear();
-            List<Product> plist = db.Products.ToList();
+            List<Product> plist = service.GetAll();
             foreach (Product product in plist)
             {
                 ListViewItem li = new ListViewItem(product.ProductName);
                 li.Tag = product;
                 li.SubItems.Add(product.UnitPrice.ToString());
                 li.SubItems.Add(product.UnitsInStock.ToString());
-                li.SubItems.Add(product.Category.CategoryName);
+                if (product.Category != null)
+                {
+                    li.SubItems.Add(product.Category.CategoryName);
+                }
                 listView1.Items.Add(li);
             }
         }
@@ -54,8 +57,8 @@ namespace NorthShop.UI
 
                 if (result == DialogResult.OK)
                 {
-                    db.Products.Remove(selectedProduct);
-                    db.SaveChanges();
+                    service.Delete(selectedProduct);
+                   
                     MessageBox.Show("Silindi");
                     DataFill();
                 }

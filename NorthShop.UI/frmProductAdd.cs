@@ -1,4 +1,5 @@
-﻿using NorthShop.DAL;
+﻿using NorthShop.BLL;
+using NorthShop.DAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,8 @@ namespace NorthShop.UI
         {
             InitializeComponent();
         }
-        NorthwindEntities db = new NorthwindEntities();
+        ProductService service = new ProductService();
+        CategoryService cateService = new CategoryService();
         private void btnKaydet_Click(object sender, EventArgs e)
         {
 
@@ -28,8 +30,7 @@ namespace NorthShop.UI
                 p.UnitsInStock = short.Parse(txtStock.Text);
                 p.UnitPrice = int.Parse(txtPrice.Text);
                 p.CategoryID = ((Category)cmbCategories.SelectedItem).CategoryID;
-                db.Products.Add(p);
-                db.SaveChanges();
+                service.Add(p);
                 MessageBox.Show("Ekleme Başarılı");
             }
             catch (Exception ex)
@@ -45,7 +46,7 @@ namespace NorthShop.UI
         }
         private void DataFill()
         {
-            cmbCategories.DataSource = db.Categories.ToList();
+            cmbCategories.DataSource = cateService.GetAll();
             cmbCategories.DisplayMember = "CategoryName";
             cmbCategories.ValueMember = "CategoryId";
         }

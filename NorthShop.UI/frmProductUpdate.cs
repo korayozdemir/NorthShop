@@ -1,4 +1,5 @@
-﻿using NorthShop.DAL;
+﻿using NorthShop.BLL;
+using NorthShop.DAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +20,9 @@ namespace NorthShop.UI
             product = _product;
             InitializeComponent();
         }
-        NorthwindEntities db = new NorthwindEntities();
+        ProductService service = new ProductService();
+        CategoryService cateService = new CategoryService();
+
         private void frmProductUpdate_Load(object sender, EventArgs e)
         {
             DataFill();
@@ -32,7 +35,7 @@ namespace NorthShop.UI
 
         private void DataFill()
         {
-            cmbCategories.DataSource = db.Categories.ToList();
+            cmbCategories.DataSource = cateService.GetAll();
             cmbCategories.DisplayMember = "CategoryName";
             cmbCategories.ValueMember = "CategoryId";
         }
@@ -41,12 +44,12 @@ namespace NorthShop.UI
         {
             try
             {
-                Product p = db.Products.FirstOrDefault(z => z.ProductID == product.ProductID);
+                Product p = service.SelectById(product.ProductID);
                 p.ProductName = txtName.Text;
                 p.UnitsInStock = short.Parse(txtStock.Text);
                 p.UnitPrice = int.Parse(txtPrice.Text);
                 p.CategoryID = ((Category)cmbCategories.SelectedItem).CategoryID;
-                db.SaveChanges();
+                service.Update(p);
                 MessageBox.Show("Güncelleme Başarılı");
             }
             catch (Exception ex)

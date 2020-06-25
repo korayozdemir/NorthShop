@@ -1,6 +1,7 @@
 ﻿using NorthShop.DAL;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,22 +19,28 @@ namespace NorthShop.BLL
 
         public void Delete(Product entity)
         {
-            throw new NotImplementedException();
+            db.Products.Remove(entity);
+            db.SaveChanges();
         }
 
         public List<Product> GetAll()
         {
-            throw new NotImplementedException();
+            return db.Products.ToList();
         }
 
         public Product SelectById(int Id)
         {
-            throw new NotImplementedException();
+            return db.Products.FirstOrDefault(z => z.ProductID == Id);
         }
 
         public void Update(Product entity)
         {
-            throw new NotImplementedException();
+            Product updateProduct = SelectById(entity.ProductID);
+            updateProduct.ProductName = entity.ProductName;
+            updateProduct.UnitsInStock = entity.UnitsInStock;
+            updateProduct.UnitPrice = entity.UnitPrice;
+            updateProduct.CategoryID = entity.CategoryID;
+            db.SaveChanges();
         }
     }
 }
